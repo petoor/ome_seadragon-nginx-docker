@@ -1,0 +1,13 @@
+upstream omeroweb {
+    server ${OMEROWEBHOST}:4080 fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name $hostname;
+
+    sendfile on;
+    client_max_body_size 0;
+
+    include apps/nginx_omero-web.location;
+}
