@@ -1,5 +1,5 @@
 # Builder (stage 0)
-ARG OME_SEADRAGON_VERSION=0.6.16
+ARG OME_SEADRAGON_VERSION=0.6.17
 ARG OMERO_WEB_VERSION=5.5.1
 
 FROM crs4/ome_seadragon-web:${OME_SEADRAGON_VERSION}-ome${OMERO_WEB_VERSION}
@@ -13,7 +13,7 @@ RUN /opt/omero/web/OMERO.web/bin/omero config append omero.web.apps '"ome_seadra
     && python /opt/omero/web/OMERO.web/lib/python/omeroweb/manage.py collectstatic --noinput
 
 # Production
-FROM nginx:1.15.11
+FROM nginx:1.18.0
 LABEL maintainer="luca.lianas@crs4.it"
 
 COPY --from=0 /opt/omero/web/OMERO.web/lib/python/omeroweb/static /opt/omero/nginx/static/
