@@ -13,7 +13,7 @@ RUN /opt/omero/web/OMERO.web/bin/omero config append omero.web.apps '"ome_seadra
     && python /opt/omero/web/OMERO.web/lib/python/omeroweb/manage.py collectstatic --noinput
 
 # Production
-FROM nginx:1.15.11
+FROM nginx:1.18.0
 LABEL maintainer="luca.lianas@crs4.it"
 
 COPY --from=0 /opt/omero/web/OMERO.web/lib/python/omeroweb/static /opt/omero/nginx/static/
