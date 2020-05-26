@@ -5,6 +5,13 @@ ARG OMERO_WEB_VERSION=5.5.1
 FROM crs4/ome_seadragon-web:${OME_SEADRAGON_VERSION}-ome${OMERO_WEB_VERSION}
 
 ENV PYTHONPATH "/opt/omero/web/venv/lib/python2.7/site-packages/:/opt/omero/web/OMERO.web/lib/python/:${PYTHONPATH}"
+USER root
+
+RUN mkdir -p /opt/build_data/django_static/ \
+    && mkdir -p /opt/build_data/nginx-site/ \
+    && chown -R omero-web /opt/build_data/
+
+USER omero-web
 
 RUN /opt/omero/web/OMERO.web/bin/omero config append omero.web.apps '"ome_seadragon"' \
     && /opt/omero/web/OMERO.web/bin/omero web config nginx-location > /opt/omero/web/nginx_omero-web.location \
